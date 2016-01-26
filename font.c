@@ -60,17 +60,17 @@ volatile const unsigned char bitmaps[6][8] EEMEM = {
 	{0xEF,0x48,0x4B,0x49,0x4F,0x00,0x00,0x00} // TG
 };
 
-const unsigned char paths[44] PROGMEM = {0x07,0x06,0x05,0x04,0x03,0x02,0x01,0x00,0x10,0x20,0x30,0x40,0x50,0x60,0x70,0x71,0x72,0x73,0x74,0x75,0x76,0x77,0x67,0x57,0x47,0x37,0x27,0x17,
+const unsigned char paths[44] PROGMEM = {0x07,0x17,0x27,0x37,0x47,0x57,0x67,0x77,0x76,0x75,0x74,0x73,0x72,0x71,0x70,0x60,0x50,0x40,0x30,0x20,0x10,0x00,0x01,0x02,0x03,0x04,0x05,0x06,
 0x04,0x03,0x12,0x21,0x30,0x40,0x51,0x62,0x73,0x74,0x65,0x56,0x47,0x37,0x26,0x15}; // circle, len 16, offset 28
 
 void font_getpath (unsigned char path, unsigned char *destination, int length)
 {
 	int i;
 	int offset = 0;
-	
+
 	if (path == 1)
 		offset=28;
-	
+
 	for (i = 0; i < length; i++)
 		destination[i] = pgm_read_byte(&paths[i+offset]);
 }
@@ -79,7 +79,7 @@ void font_getchar (char chr, unsigned char dst[5])
 {
 	uint8_t i;
 	chr -= 32; // our bitmap font starts at ascii char 32.
-	
+
     for (i = 0; i < 5; i++)
 		dst[i] = (unsigned char)eeprom_read_byte((uint8_t*)&font[(chr*5)+i]);
 }
@@ -87,10 +87,10 @@ void font_getchar (char chr, unsigned char dst[5])
 void font_getbitmap (char bitmap, unsigned char dst[8])
 {
 	int i;
-	
+
     for (i = 0; i < 8; i++)
 		dst[i] = (unsigned char)eeprom_read_byte((uint8_t*)&bitmaps[(uint8_t)bitmap][(uint8_t)i]);
-	
+
 }
 
 unsigned char font_getbitmappixel ( char bitmap, char x, char y)
@@ -98,7 +98,3 @@ unsigned char font_getbitmappixel ( char bitmap, char x, char y)
 	uint8_t tmp = eeprom_read_byte((uint8_t*)&bitmaps[(uint8_t)bitmap][(uint8_t)x]);
 	return (tmp >> y) & 0x01;
 }
-
-
-
-

@@ -41,7 +41,12 @@ int main (void)
 	// Do awesome effects. Loop forever.
 	while (1)
 	{
-		// Show the effects in a random order
+		effect_path_bitmap(1500, 2, 2);
+		effect_path_text(1800, "FH Aachen");
+		launch_effect(rand() % EFFECTS_TOTAL);
+		effect_path_text(1800, "BMT");
+		launch_effect(rand() % EFFECTS_TOTAL);
+		effect_stringfly2("FH AACHEN");
 		launch_effect(rand() % EFFECTS_TOTAL);
 	}
 }
